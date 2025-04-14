@@ -2,8 +2,10 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Enemy
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -11,7 +13,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -41,3 +43,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3454271435
+    locked: 0
+  - name: Tiles
+    uniqueID: 2143583043
+    locked: 0
+  - name: Midground
+    uniqueID: 3961669069
+    locked: 0
+  - name: Player
+    uniqueID: 3863643679
+    locked: 0
+  - name: Foreground
+    uniqueID: 223506849
+    locked: 0
+  - name: UI
+    uniqueID: 142768517
+    locked: 0
+  m_RenderingLayers:
+  - Default
