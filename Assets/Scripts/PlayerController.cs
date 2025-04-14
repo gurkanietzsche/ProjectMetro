@@ -23,17 +23,23 @@ public class PlayerController : MonoBehaviour
     // Bileşenler
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private Animator animator; // Eğer animator kullanacaksanız
+    private Animator animator;
     
     // Karakter yönü
     private bool isFacingRight = true;
+    
+    // Animator parametreleri
+    private readonly string speedParameter = "Speed";
+    private readonly string shootParameter = "Shoot";
+    private readonly string hurtParameter = "Hurt";
+    private readonly string dieParameter = "Die";
     
     void Start()
     {
         // Bileşenleri al
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>(); // Eğer varsa
+        animator = GetComponent<Animator>();
         
         // Değişkenleri başlat
         currentHealth = maxHealth;
@@ -44,6 +50,12 @@ public class PlayerController : MonoBehaviour
     {
         // Yatay hareket
         float moveHorizontal = Input.GetAxis("Horizontal");
+        
+        // Animasyon parametresini güncelle
+        if (animator != null)
+        {
+            animator.SetFloat(speedParameter, Mathf.Abs(moveHorizontal));
+        }
         
         // Karakter yönünü belirle
         if (moveHorizontal > 0 && !isFacingRight)
@@ -88,6 +100,12 @@ public class PlayerController : MonoBehaviour
         // Mermi sayısını azalt
         currentAmmo--;
         
+        // Ateş etme animasyonunu tetikle
+        if (animator != null)
+        {
+            animator.SetTrigger(shootParameter);
+        }
+        
         // Mermi oluştur (bulletPrefab daha sonra oluşturulacak)
         if (bulletPrefab != null && firePoint != null)
         {
@@ -108,6 +126,12 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth -= damage;
         
+        // Hasar alma animasyonunu tetikle
+        if (animator != null)
+        {
+            animator.SetTrigger(hurtParameter);
+        }
+        
         // Öldü mü kontrol et
         if (currentHealth <= 0)
         {
@@ -117,6 +141,12 @@ public class PlayerController : MonoBehaviour
     
     void Die()
     {
+        // Ölüm animasyonunu tetikle
+        if (animator != null)
+        {
+            animator.SetTrigger(dieParameter);
+        }
+        
         // Oyuncuyu devre dışı bırak
         enabled = false;
         rb.linearVelocity = Vector2.zero;
